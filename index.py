@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup as bs
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
+import openpyxl
 
 
 chromedriver_path = "/usr/bin/chromedriver"
@@ -42,7 +43,6 @@ def get_ads_urls_set(path_with_filters):
         link = i['href']
         full_url = domain + link
         offers_paths_set.add(full_url)
-    print(offers_paths_set)
     return offers_paths_set
 
 
@@ -56,9 +56,9 @@ def get_single_offer(offer):
     description_html = adv_html.find_all("div", {"class": "basic-info"})
     detailed_info_html = adv_html.find_all(
         "div", {"class": "detailed-information"})
-    row = [offer, description_html[0], detailed_info_html[0]]
-    print(row)
-    return row
+    new_df = pd.DataFrame({'link': [offer], 'description': [
+                          description_html[0]], 'detailed_info': [detailed_info_html[0]]})
+    return new_df
     # do smth to get all needed data
     # put it into a df
     # get next ad
@@ -75,16 +75,14 @@ def get_data_for_regex(offers_paths_set):
     # ads_df = pd.DataFrame(columns=['link', 'price', 'location', 'rooms_meters', 'description', 'detailed_info'])
     ads_df = pd.DataFrame(columns=['link', 'description', 'detailed_info'])
     for i in offers_paths_set:
-        single_offer_row = get_single_offer(i)
-        print(single_offer_row)
-        ads_df = ads_df.append(single_offer_row, ignore_index=True)
-        print(ads_df)
+        new_df = get_single_offer(i)
+        ads_df = ads_df.append(new_df, ignore_index=True)
     return ads_df
 
 
 offers_paths_set = get_ads_urls_set(morizon_main_url)
 df_ready_for_regex = get_data_for_regex(offers_paths_set)
-print(df_ready_for_regex)
+df_ready_for_regex.to_excel('out.xlsx')
 
 # DEPRECATED
 
