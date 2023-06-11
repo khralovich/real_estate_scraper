@@ -7,8 +7,10 @@ import time
 
 chromedriver_path = "/usr/bin/chromedriver"
 domain = "https://www.morizon.pl"
-morizon_main_url = "https://www.morizon.pl/mieszkania/warszawa/?ps%5Bbuild_year_from%5D=1970&ps%5Bliving_area_from%5D=40&ps%5Bmarket_type%5D=2&ps%5Bnumber_of_rooms_from%5D=2&ps%5Bnumber_of_rooms_to%5D=3&ps%5Bprice_m2_to%5D=10979&ps%5Bprice_to%5D=500000"
+# morizon_main_url = "https://www.morizon.pl/mieszkania/warszawa/?ps%5Bbuild_year_from%5D=1970&ps%5Bliving_area_from%5D=39&ps%5Bmarket_type%5D=2&ps%5Bnumber_of_rooms_from%5D=2&ps%5Bnumber_of_rooms_to%5D=3&ps%5Bprice_from%5D=380000&ps%5Bprice_to%5D=460000&ps%5Bwith_photo%5D=1"
 
+
+morizon_main_url = "https://www.morizon.pl/mieszkania/warszawa/?ps%5Bbuild_year_from%5D=1970&ps%5Bliving_area_from%5D=39&ps%5Bmarket_type%5D=2&ps%5Bnumber_of_rooms_from%5D=2&ps%5Bnumber_of_rooms_to%5D=3&ps%5Bprice_from%5D=380000&ps%5Bprice_to%5D=400000&ps%5Bwith_photo%5D=1"
 """
 Create a general class for scraping a page.
 Returns: a soup object (an entire html)
@@ -51,7 +53,12 @@ A function for a single ad. Should be in a loop.
 
 def get_single_offer(offer):
     adv_html = get_html(offer)
-    product_card = adv_html.find_all("div", {"class": "basic-info"})
+    description_html = adv_html.find_all("div", {"class": "basic-info"})
+    detailed_info_html = adv_html.find_all(
+        "div", {"class": "detailed-information"})
+    row = [offer, description_html[0], detailed_info_html[0]]
+    print(row)
+    return row
     # do smth to get all needed data
     # put it into a df
     # get next ad
@@ -60,19 +67,26 @@ def get_single_offer(offer):
 """
 Loop through ads of interest, scrape each one of them.
 Arguments to pass: a set of urls.
-Returns: a df with info for each ad.
+Returns: a df with info.
 """
 
 
 def get_data_for_regex(offers_paths_set):
-    ads_df = pd.DataFrame()
+    # ads_df = pd.DataFrame(columns=['link', 'price', 'location', 'rooms_meters', 'description', 'detailed_info'])
+    ads_df = pd.DataFrame(columns=['link', 'description', 'detailed_info'])
     for i in offers_paths_set:
         single_offer_row = get_single_offer(i)
+        print(single_offer_row)
         ads_df = ads_df.append(single_offer_row, ignore_index=True)
+        print(ads_df)
     return ads_df
 
 
 offers_paths_set = get_ads_urls_set(morizon_main_url)
+df_ready_for_regex = get_data_for_regex(offers_paths_set)
+print(df_ready_for_regex)
+
+# DEPRECATED
 
 
 """
