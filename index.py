@@ -8,10 +8,10 @@ import openpyxl
 
 chromedriver_path = "/usr/bin/chromedriver"
 domain = "https://www.morizon.pl"
-# morizon_main_url = "https://www.morizon.pl/mieszkania/warszawa/?ps%5Bbuild_year_from%5D=1970&ps%5Bliving_area_from%5D=39&ps%5Bmarket_type%5D=2&ps%5Bnumber_of_rooms_from%5D=2&ps%5Bnumber_of_rooms_to%5D=3&ps%5Bprice_from%5D=380000&ps%5Bprice_to%5D=460000&ps%5Bwith_photo%5D=1"
+morizon_main_url = "https://www.morizon.pl/mieszkania/warszawa/?ps%5Bbuild_year_from%5D=1970&ps%5Bliving_area_from%5D=39&ps%5Bmarket_type%5D=2&ps%5Bnumber_of_rooms_from%5D=2&ps%5Bnumber_of_rooms_to%5D=3&ps%5Bprice_from%5D=380000&ps%5Bprice_to%5D=460000&ps%5Bwith_photo%5D=1"
 
 
-morizon_main_url = "https://www.morizon.pl/mieszkania/warszawa/?ps%5Bbuild_year_from%5D=1970&ps%5Bliving_area_from%5D=39&ps%5Bmarket_type%5D=2&ps%5Bnumber_of_rooms_from%5D=2&ps%5Bnumber_of_rooms_to%5D=3&ps%5Bprice_from%5D=380000&ps%5Bprice_to%5D=400000&ps%5Bwith_photo%5D=1"
+# morizon_main_url = "https://www.morizon.pl/mieszkania/warszawa/?ps%5Bbuild_year_from%5D=1970&ps%5Bliving_area_from%5D=39&ps%5Bmarket_type%5D=2&ps%5Bnumber_of_rooms_from%5D=2&ps%5Bnumber_of_rooms_to%5D=3&ps%5Bprice_from%5D=380000&ps%5Bprice_to%5D=400000&ps%5Bwith_photo%5D=1"
 """
 Create a general class for scraping a page.
 Returns: a soup object (an entire html)
@@ -83,19 +83,3 @@ def get_data_for_regex(offers_paths_set):
 offers_paths_set = get_ads_urls_set(morizon_main_url)
 df_ready_for_regex = get_data_for_regex(offers_paths_set)
 df_ready_for_regex.to_excel('out.xlsx')
-
-# DEPRECATED
-
-
-"""
-if this exists
-class
-cmp-intro_intro
-it means we have a popup (After 10 sec), to close:
-class
-cmp-closebutton_closeButton cmp-closebutton_hasBorder
-if soup.find_all("div", {"class": "cmp-intro_intro"}):
-    print("popup detected")
-else:
-    print("no popup")
-"""
