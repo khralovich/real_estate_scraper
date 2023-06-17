@@ -11,7 +11,6 @@ class Website:
     def __init__(self, domain, webpage_filter):
         self.domain = domain
         self.webpage_filter = webpage_filter
-        self.main_page_html = ""
 
     def get_html(self):
         driver = webdriver.Chrome(Website.CHROMEDRIVER_PATH)
@@ -23,7 +22,7 @@ class Website:
         return soup
 
     def get_ads_urls_set(self):
-        main_page_html = soup
+        main_page_html = self.soup
         all_offers_html = main_page_html.find_all(
             "a", {"class": "offer__outer"})
         offers_paths_set = set()

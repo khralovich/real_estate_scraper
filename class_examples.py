@@ -72,8 +72,8 @@ class Employee:
       else:
         self.salary = Employee.MIN_SALARY
   def give_raise(self, amount):
-    self.salary += amount      
-        
+    self.salary += amount
+
 # MODIFY Manager class and add a display method
 class Manager(Employee):
   def display(self):
@@ -97,7 +97,7 @@ class Employee:
     def give_raise(self, amount):
         self.salary += amount
 
-        
+
 class Manager(Employee):
     def display(self):
         print("Manager ", self.name)
@@ -109,4 +109,22 @@ class Manager(Employee):
     # Add a give_raise method
     def give_raise(self, amount, bonus=1.05):
         Employee.give_raise(self, amount * bonus)
-        """
+"""
+
+"""
+STRING REPRESENTATION OF OBJECTS
+
+class Employee:
+    def __init__(self, name, salary=30000):
+        self.name, self.salary = name, salary
+            
+    # Add the __str__() method
+    def __str__(self):
+        f = "Employee name: {}, Employee salary: {}".format(self.name, self.salary)
+        return f
+
+emp1 = Employee("Amar Howard", 30000)
+print(emp1)
+emp2 = Employee("Carolyn Ramirez", 35000)
+print(emp2)
+"""
