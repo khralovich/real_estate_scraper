@@ -50,7 +50,6 @@ class BetterDate:
       year = datetimeobj.year
       return  cls(year, month, day)
 
-# You should be able to run the code below with no errors:
 today = datetime.today()
 bd = BetterDate.from_datetime(today)
 print(bd.year)
@@ -117,7 +116,6 @@ STRING REPRESENTATION OF OBJECTS
 class Employee:
     def __init__(self, name, salary=30000):
         self.name, self.salary = name, salary
-            
     # Add the __str__() method
     def __str__(self):
         f = "Employee name: {}, Employee salary: {}".format(self.name, self.salary)

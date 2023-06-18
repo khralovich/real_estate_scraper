@@ -12,7 +12,7 @@ Create a general class for scraping a page.
 Returns: a soup object (an entire html)
 """
 
-
+"""
 def get_html(url):
     driver = webdriver.Chrome(chromedriver_path)
     driver.get(url)
@@ -21,7 +21,7 @@ def get_html(url):
     time.sleep(10)
     soup = bs(html, "html.parser")
     return soup
-
+"""
 
 """
 Get urls of all ads we would like to scrape.
@@ -29,7 +29,7 @@ Arguments to pass: a path with a query (filters)
 Returns: a set of links with ads of interest.
 """
 
-
+"""
 def get_ads_urls_set(path_with_filters):
     main_page_html = get_html(path_with_filters)
     all_offers_html = main_page_html.find_all("a", {"class": "offer__outer"})
@@ -39,7 +39,7 @@ def get_ads_urls_set(path_with_filters):
         full_url = domain + link
         offers_paths_set.add(full_url)
     return offers_paths_set
-
+"""
 
 """
 A function for a single ad. Should be in a loop.
